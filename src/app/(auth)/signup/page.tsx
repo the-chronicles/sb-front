@@ -8,7 +8,11 @@ export default function Signup() {
   const [selectedRole, setSelectedRole] = useState(""); 
   const router = useRouter(); 
 
-  const handleRoleSelect = (role) => {
+  interface RoleSelectHandler {
+    (role: string): void;
+  }
+
+  const handleRoleSelect: RoleSelectHandler = (role) => {
     setSelectedRole(role);
   };
 

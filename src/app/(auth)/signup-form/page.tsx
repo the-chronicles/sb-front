@@ -37,8 +37,13 @@ const handleSubmit = async (e: React.FormEvent) => {
 
     window.location.href = "/";
   } catch (error) {
-    console.error("Signup failed:", error.response?.data || error.message);
-    alert(error.response?.data?.message || "An error occurred during signup.");
+    if (axios.isAxiosError(error)) {
+      console.error("Signup failed:", error.response?.data || error.message);
+    } else {
+      console.error("Signup failed:", (error as Error).message);
+    }
+    const errorMessage = axios.isAxiosError(error) ? error.response?.data?.message : "An error occurred during signup.";
+    alert(errorMessage);
   }
 };
 

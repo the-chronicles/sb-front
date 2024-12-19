@@ -27,8 +27,13 @@ export default function Login() {
       
       window.location.href = "/";
     } catch (error) {
-      console.error("Login failed:", error.response?.data || error.message);
-      alert(error.response?.data?.message || "Invalid email or password.");
+      if (axios.isAxiosError(error)) {
+        console.error("Login failed:", error.response?.data || error.message);
+        alert(error.response?.data?.message || "Invalid email or password.");
+      } else {
+        console.error("Login failed:", (error as Error).message);
+        alert("Invalid email or password.");
+      }
     }
   };
 
